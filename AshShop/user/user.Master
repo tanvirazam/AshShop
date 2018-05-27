@@ -1,0 +1,276 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="user.master.cs" Inherits="AshShop.user.user" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BdBazar</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">            
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <link href="../content/mystyle.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/ProductDescription.css" rel="stylesheet" />
+
+    
+
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+                .row.content{
+                    width:auto;
+            height: auto;
+        }
+        .row.content #idcategory{
+            height: auto;
+        }
+                .row.content #idoffer{
+            height: 300px;
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 500px;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+        #cart {
+            width: 200px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content #idcategory{
+                height: auto;
+            }
+                        .row.content #idoffer{
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            #idoffer {
+                height: 300px;
+            }
+        }
+
+          @media (max-width: 720px) {
+  #idoffer {
+    height: 250px;
+  }
+}
+          
+          @media (max-width: 520px) {
+  #idoffer {
+    height: 200px;
+  }
+}
+                    @media (min-width: 992px) {
+         .imagewi {
+            width:600px;
+            height:300px;
+        }
+
+}
+
+           @media (min-width: 720px) {
+         .imagewi {
+            width:600px;
+            height:250px;
+        }
+
+}
+
+                      @media (min-width: 520px) {
+         .imagewi {
+            width:600px;
+            height:250px;
+        }
+
+}
+
+
+
+     
+ 
+ 
+
+
+    </style>
+
+    <script>
+        function search() {
+            window.location = "DisplayProduct.aspx?search=" + document.getElementById("SearchTextBox").value;
+        }
+
+    </script>
+
+</head>
+<body>
+    
+    <form id="userf1" runat="server">
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <%--<a class="navbar-brand" href="#">BdBazar</a>--%>
+                    <img src="css/images/logo.png"  style="height:80px;width:150px"/>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                     
+                        
+                        
+                        <li><a href="../user/UserAccount.aspx">My Account</a></li>
+                        <li><a href="../user/DisPlayCategory.aspx">The Store</a></li>
+                        
+                        <%
+                            if (Session["user_email"]==null)
+                            {
+                                
+                                 %>
+                        <li><a href="../user/UserRegistrationUI.aspx">Registration</a></li>
+                         <li><a href="../user/UserLogin.aspx">Login</a></li>
+                        <%
+                            
+                            }
+                            else
+                            {
+                                %>
+                        <li><a href="../user/DisplayUserOrder.aspx">Display Order</a></li>
+                         <li><a href="../user/LogOut.aspx">LogOut</a></li>
+                        <%
+                                
+                            }
+                             %>
+                       
+                   <li><a href="../user/Contact.aspx">Contact</a></li>
+                    </ul>
+<%--                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>--%>
+
+
+                    
+                    
+                    <div class="nav navbar-nav navbar-right col-md-3 col-sm-3" id="cart">
+                    <a href="../user/ViewCartUI.aspx" class="cart-link">Your Shopping Cart</a>
+                    <div class="cl">&nbsp;</div>
+                    <span>Total Item: <strong>
+                        <asp:Label ID="lblTotalItem" runat="server" Text=""></asp:Label>
+                                      </strong></span> &nbsp;&nbsp; <span>Total Cost: <strong>
+                            <asp:Label ID="lblTotalCost" runat="server" Text=""></asp:Label>Tk</strong></span>
+                   </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-sm-2 sidenav">
+                     <div class="box search">
+                        <h2>Search by <span></span></h2>
+                        <div class="box-content">
+
+                            <br>
+                            <label>Product Name</label>
+                            <input type="text" class="field" id="SearchTextBox" />
+
+                            <input type="button" class="search-submit" value="Search" onclick="search();" />
+                            <p>please enter item name inside the textbox</p>
+
+                        </div>
+                    </div>
+                    <div class="box categories">
+                        <h2>Categories <span></span></h2>
+                        <div class="box-content">
+                            <ul>
+                                <asp:DataList ID="DataListProductCategory" runat="server">
+                                    <ItemTemplate>
+                                        <li><a href="DisplayProduct.aspx?category=<%#Eval("ProductCategoryName") %>"><%#Eval("ProductCategoryName") %></a></li>
+                                    </ItemTemplate>
+                                </asp:DataList>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10 text-left">
+
+
+
+                    <div class="row content" id="idoffer">
+                        <div class="slider">
+                            <figure>
+                                
+                                    <asp:Repeater runat="server" ID="rpt">
+                                        <ItemTemplate>
+                                            <div class="slide">
+                                            <asp:Image runat="server" ID="img" CssClass="imagewi" ImageUrl='<%#Eval("ProductOfferImage") %>'/>
+                                             </div>
+                                        </ItemTemplate>
+
+                                    </asp:Repeater>
+                                    
+                              
+
+
+                            </figure>
+
+                        </div>
+
+
+
+
+                    </div>
+
+                    <div class="row content" id="idcategory">
+                        <asp:ContentPlaceHolder ID="userc1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="container-fluid text-center">
+            <p>Footer Text</p>
+        </footer>
+</form>
+</body>
+</html>
+
